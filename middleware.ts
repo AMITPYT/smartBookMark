@@ -32,6 +32,15 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // Allow auth-related routes to pass through without protection
+  if (
+    request.nextUrl.pathname.startsWith('/callback') ||
+    request.nextUrl.pathname.startsWith('/auth') ||
+    request.nextUrl.pathname === '/'
+  ) {
+    return supabaseResponse
+  }
+
   // Protected routes - redirect to login if not authenticated
   if (
     !user &&
