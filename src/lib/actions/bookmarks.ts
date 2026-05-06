@@ -30,14 +30,13 @@ export async function addBookmark(formData: FormData) {
     return { error: 'Please enter a valid URL' }
   }
 
-  const { error } = await supabase
-    .from('bookmarks')
+  const { error } = await (supabase.from('bookmarks') as any)
     .insert({
       user_id: user.id,
       title: title.trim(),
       url: url.trim(),
       description: description?.trim() || null,
-    } as any)
+    })
 
   if (error) {
     return { error: error.message }
@@ -99,14 +98,13 @@ export async function updateBookmark(bookmarkId: string, formData: FormData) {
     return { error: 'Please enter a valid URL' }
   }
 
-  const { error } = await supabase
-    .from('bookmarks')
+  const { error } = await (supabase.from('bookmarks') as any)
     .update({
       title: title.trim(),
       url: url.trim(),
       description: description?.trim() || null,
       updated_at: new Date().toISOString(),
-    } as any)
+    })
     .eq('id', bookmarkId)
     .eq('user_id', user.id)
 
