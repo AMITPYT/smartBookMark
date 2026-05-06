@@ -6,18 +6,33 @@ import { headers } from 'next/headers'
 
 export async function signInWithGoogle() {
   const supabase = await createClient()
-  const headerList = await headers()
-  const host = headerList.get('host')
-  const protocol = host?.includes('localhost') ? 'http' : 'https'
+  
+  // Use the SITE_URL from env or fallback to headers
+  let siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  
+  if (!siteUrl) {
+    const headerList = await headers()
+    const host = headerList.get('host')
+    const protocol = host?.includes('localhost') ? 'http' : 'https'
+    siteUrl = `${protocol}://${host}`
+  }
+
+  // Ensure there's no trailing slash
+  siteUrl = siteUrl.replace(/\/$/, '')
   
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${protocol}://${host}/callback`,
+      redirectTo: `${siteUrl}/callback`,
+      queryParams: {
+        access_type: 'offline',
+        prompt: 'consent',
+      },
     },
   })
 
   if (error) {
+    console.error('OAuth Error:', error)
     redirect('/error?message=Could not authenticate with Google')
   }
 
