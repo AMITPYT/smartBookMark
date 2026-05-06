@@ -14,7 +14,7 @@ export default async function LoginPage() {
   } = await supabase.auth.getUser()
 
   if (user) {
-    return null // Middleware will redirect to dashboard
+    return null // Middleware will redirect
   }
 
   return (
