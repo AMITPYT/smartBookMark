@@ -2,7 +2,7 @@
 
 A professional, full-featured bookmark manager built with Next.js 16 and Supabase, featuring Google OAuth authentication, real-time synchronization, and Row Level Security.
 
-**Live Demo:** [Deploy on Vercel](https://vercel.com/new)
+**Live Demo:** [smart-book-mark-8ioi.vercel.app/](https://smart-book-mark-8ioi.vercel.app/)
 
 ## ✨ Features
 
@@ -43,7 +43,7 @@ A professional, full-featured bookmark manager built with Next.js 16 and Supabas
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/AMITPYT/smartBookMark.git>
 cd smartBookmarkApp
 ```
 
